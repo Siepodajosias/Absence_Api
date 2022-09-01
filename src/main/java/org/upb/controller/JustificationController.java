@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.upb.classeAlternative.Justification2;
+import org.upb.dao.IAbsence;
 import org.upb.dao.IJustification;
+import org.upb.data.Absence;
 import org.upb.data.Justification;
 
 import io.swagger.annotations.Api;
@@ -26,8 +29,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Justifications :",description = "ressources Justifications")
 public class JustificationController {
 	@Autowired
-   private IJustification justification;
+    private IJustification justification;
 	
+	@Autowired
+	private IAbsence absence;
 	
 	@ApiOperation(value = "L'URL pour la liste des justifications")
 	@GetMapping(value = "/justifications")
@@ -35,10 +40,21 @@ public class JustificationController {
 		return justification.findAll();
 	}
 	
-	@ApiOperation(value = "L'URL pour enregistrer une justification")
+	@ApiOperation(value = "L'URL pour enregistrer une justification. Utiliser les champs du modèle justification2 pour l'implémentation de votre application")
 	@PostMapping(value = "/justifications")
-	public Justification EnregistrerJustification(Justification a){
-		return justification.save(a);
+	public Justification EnregistrerJustification(Justification2 a){
+		Justification justification1=new Justification();
+		Absence absence1=new Absence();
+		absence1=absence.findByidAbsence(a.getAbsence());
+		
+		justification1.setAbsence(absence1);
+		justification1.setDateJustification(a.getDateJustification());
+		justification1.setMotifJustification(a.getMotifJustification());
+		justification1.setCommentaireJustification(a.getCommentaireJustification());
+		justification1.setFichierJustification(a.getFichierJustification());
+		justification1.setValiderJustification(a.getValiderJustification());
+		
+		return justification.save(justification1);
 	}
 	
 	@ApiOperation(value = "L'URL pour récuperer une justification en fonction de son identifiant")
@@ -47,11 +63,22 @@ public class JustificationController {
     	return justification.findById(id).get();
     }
 	  
-	@ApiOperation(value = "L'URL pour modifier les informations d'une justification")
+	@ApiOperation(value = "L'URL pour modifier les informations d'une justification.  Utiliser les champs du modèle justification2 pour l'implémentation de votre application")
 	@PutMapping(value = "/justifications/{id}")
-	public Justification updateJustification(@PathVariable(name="id") Integer id,@RequestBody Justification p) {
-		p.setIdJustification(id);
-		return justification.save(p);
+	public Justification updateJustification(@PathVariable(name="id") Integer id,@RequestBody Justification2 a) {
+		Justification justification1=new Justification();
+		Absence absence1=new Absence();
+		absence1=absence.findByidAbsence(a.getAbsence());
+		
+		justification1.setAbsence(absence1);
+		justification1.setDateJustification(a.getDateJustification());
+		justification1.setMotifJustification(a.getMotifJustification());
+		justification1.setCommentaireJustification(a.getCommentaireJustification());
+		justification1.setFichierJustification(a.getFichierJustification());
+		justification1.setValiderJustification(a.getValiderJustification());
+		justification1.setIdJustification(id);
+		
+		return justification.save(justification1);
 	}
 
 	@ApiOperation(value = "L'URL pour retirer une justification de la base de donnée")

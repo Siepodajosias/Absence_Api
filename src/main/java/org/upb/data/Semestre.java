@@ -1,5 +1,5 @@
 package org.upb.data;
-// Generated 31 ao�t 2022 � 12:53:26 by Hibernate Tools 4.3.5.Final
+// Generated 1 sept. 2022 � 12:20:27 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,20 +24,21 @@ import javax.persistence.Table;
 public class Semestre implements java.io.Serializable {
 
 	private Integer idSemestre;
+	private AnneeAcademique anneeAcademique;
 	private String libelleSemestre;
-	private Set<AnneeAcademique> anneeAcademiques = new HashSet<AnneeAcademique>(0);
 	private Set<Ecue> ecues = new HashSet<Ecue>(0);
 
 	public Semestre() {
 	}
 
-	public Semestre(String libelleSemestre) {
+	public Semestre(AnneeAcademique anneeAcademique, String libelleSemestre) {
+		this.anneeAcademique = anneeAcademique;
 		this.libelleSemestre = libelleSemestre;
 	}
 
-	public Semestre(String libelleSemestre, Set<AnneeAcademique> anneeAcademiques, Set<Ecue> ecues) {
+	public Semestre(AnneeAcademique anneeAcademique, String libelleSemestre, Set<Ecue> ecues) {
+		this.anneeAcademique = anneeAcademique;
 		this.libelleSemestre = libelleSemestre;
-		this.anneeAcademiques = anneeAcademiques;
 		this.ecues = ecues;
 	}
 
@@ -53,6 +54,16 @@ public class Semestre implements java.io.Serializable {
 		this.idSemestre = idSemestre;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Annee_academique_id_annee_academique", nullable = false)
+	public AnneeAcademique getAnneeAcademique() {
+		return this.anneeAcademique;
+	}
+
+	public void setAnneeAcademique(AnneeAcademique anneeAcademique) {
+		this.anneeAcademique = anneeAcademique;
+	}
+
 	@Column(name = "libelle_semestre", nullable = false, length = 45)
 	public String getLibelleSemestre() {
 		return this.libelleSemestre;
@@ -60,15 +71,6 @@ public class Semestre implements java.io.Serializable {
 
 	public void setLibelleSemestre(String libelleSemestre) {
 		this.libelleSemestre = libelleSemestre;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "semestre")
-	public Set<AnneeAcademique> getAnneeAcademiques() {
-		return this.anneeAcademiques;
-	}
-
-	public void setAnneeAcademiques(Set<AnneeAcademique> anneeAcademiques) {
-		this.anneeAcademiques = anneeAcademiques;
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)

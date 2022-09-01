@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.upb.classeAlternative.Semestre2;
+import org.upb.dao.IAnneeAcademique;
 import org.upb.dao.ISemestre;
+import org.upb.data.AnneeAcademique;
 import org.upb.data.Semestre;
 
 import io.swagger.annotations.Api;
@@ -29,16 +32,25 @@ public class SemestreController {
 	@Autowired
 	private ISemestre semestre;
 	
+	private IAnneeAcademique anneeAcademique;
+	
 	@ApiOperation(value = "L'URL pour la liste des semestres")
 	@GetMapping(value = "/semestres")
 	public List<Semestre> getListeSemestre(){
 		return semestre.findAll();
 	}
 	
-	@ApiOperation(value = "L'URL pour enregistrer un semestre")
+	@ApiOperation(value = "L'URL pour enregistrer d'un semestre.Utiliser les champs du modèle semestre2 pour l'implémentation de votre application")
 	@PostMapping(value = "/semestres")
-	public Semestre EnregistrerSemestre(@RequestBody Semestre a){
-		return semestre.save(a);
+	public Semestre EnregistrerSemestre(@RequestBody Semestre2 a){
+		Semestre semestre1=new Semestre();
+		AnneeAcademique anneeAcademique1=new AnneeAcademique();
+		
+		anneeAcademique1=anneeAcademique.findByidAnneeAcademique(a.getAnneeAcademique());
+		semestre1.setLibelleSemestre(a.getLibelleSemestre());
+		semestre1.setAnneeAcademique(anneeAcademique1);
+		
+		return semestre.save(semestre1);
 	}
 	
 	@ApiOperation(value = "L'URL pour récuperer un semestre en fonction de son identifiant")
@@ -49,12 +61,18 @@ public class SemestreController {
 	  
 	@ApiOperation(value = "L'URL pour modifier les informations d'un semestre")
 	@PutMapping(value = "/semestres/{id}")
-	public Semestre updateSemestre(@PathVariable(name="id") Integer id,@RequestBody Semestre p) {
-		p.setIdSemestre(id);
-		return semestre.save(p);
+	public Semestre updateSemestre(@PathVariable(name="id") Integer id,@RequestBody Semestre2 a) {
+		Semestre semestre1=new Semestre();
+		AnneeAcademique anneeAcademique1=new AnneeAcademique();
+		
+		anneeAcademique1=anneeAcademique.findByidAnneeAcademique(a.getAnneeAcademique());
+		semestre1.setLibelleSemestre(a.getLibelleSemestre());
+		semestre1.setAnneeAcademique(anneeAcademique1);
+		semestre1.setIdSemestre(id);
+		return semestre.save(semestre1);
 	}
 
-	@ApiOperation(value = "L'URL pour retirer un semestre de labase de donnée")
+	@ApiOperation(value = "L'URL pour retirer un semestre de la base de donnée")
 	@DeleteMapping(value = "/semestres/{id}")
 	public void supprimerNiveau(@PathVariable(name="id") Integer id) {
 		

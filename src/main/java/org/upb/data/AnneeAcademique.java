@@ -1,17 +1,17 @@
 package org.upb.data;
-// Generated 31 ao�t 2022 � 12:53:26 by Hibernate Tools 4.3.5.Final
+// Generated 1 sept. 2022 � 12:20:27 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,17 +24,22 @@ import javax.persistence.TemporalType;
 public class AnneeAcademique implements java.io.Serializable {
 
 	private Integer idAnneeAcademique;
-	private Semestre semestre;
 	private Date dateDebut;
 	private Date dateFin;
+	private Set<Semestre> semestres = new HashSet<Semestre>(0);
 
 	public AnneeAcademique() {
 	}
 
-	public AnneeAcademique(Semestre semestre, Date dateDebut, Date dateFin) {
-		this.semestre = semestre;
+	public AnneeAcademique(Date dateDebut, Date dateFin) {
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+	}
+
+	public AnneeAcademique(Date dateDebut, Date dateFin, Set<Semestre> semestres) {
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.semestres = semestres;
 	}
 
 	@Id
@@ -47,16 +52,6 @@ public class AnneeAcademique implements java.io.Serializable {
 
 	public void setIdAnneeAcademique(Integer idAnneeAcademique) {
 		this.idAnneeAcademique = idAnneeAcademique;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "Semestre_id_semestre", nullable = false)
-	public Semestre getSemestre() {
-		return this.semestre;
-	}
-
-	public void setSemestre(Semestre semestre) {
-		this.semestre = semestre;
 	}
 
 	@Temporal(TemporalType.DATE)
@@ -77,6 +72,15 @@ public class AnneeAcademique implements java.io.Serializable {
 
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "anneeAcademique")
+	public Set<Semestre> getSemestres() {
+		return this.semestres;
+	}
+
+	public void setSemestres(Set<Semestre> semestres) {
+		this.semestres = semestres;
 	}
 
 }
