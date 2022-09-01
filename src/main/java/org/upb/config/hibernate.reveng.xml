@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="upb" match-name="absence"/>
+  <table-filter match-catalog="upb" match-name="administrateur"/>
+  <table-filter match-catalog="upb" match-name="annee_academique"/>
+  <table-filter match-catalog="upb" match-name="ecue"/>
+  <table-filter match-catalog="upb" match-name="enseignant"/>
+  <table-filter match-catalog="upb" match-name="etudiant"/>
+  <table-filter match-catalog="upb" match-name="etudiant_has_parent"/>
+  <table-filter match-catalog="upb" match-name="filiere"/>
+  <table-filter match-catalog="upb" match-name="justification"/>
+  <table-filter match-catalog="upb" match-name="niveau"/>
+  <table-filter match-catalog="upb" match-name="parent"/>
+  <table-filter match-catalog="upb" match-name="role"/>
+  <table-filter match-catalog="upb" match-name="semestre"/>
+  <table-filter match-catalog="upb" match-name="semestre_has_ecue"/>
+  <table-filter match-catalog="upb" match-name="utilisateur"/>
+  <table-filter match-catalog="upb" match-name="utilisateur_has_role"/>
+</hibernate-reverse-engineering>
