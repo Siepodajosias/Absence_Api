@@ -4,7 +4,7 @@ public class Utilisateur2 {
 
 	private int administrateurId;
 	private int enseignantId;
-	private int etudiantId;
+	private String etudiantId;
 	private int parentId;
 	private String nom;
 	private String prenom;
@@ -23,7 +23,7 @@ public class Utilisateur2 {
 
 
 
-	public Utilisateur2(int administrateurId, int enseignantId, int etudiantId, int parentId, String nom, String prenom,
+	public Utilisateur2(int administrateurId, int enseignantId, String etudiantId, int parentId, String nom, String prenom,
 			String numero, String login, String passwordUtilisateur, String roles) {
 		super();
 		this.administrateurId = administrateurId;
@@ -55,11 +55,11 @@ public class Utilisateur2 {
 		this.enseignantId = enseignant;
 	}
 
-	public int getEtudiant() {
+	public String getEtudiant() {
 		return this.etudiantId;
 	}
 
-	public void setEtudiant(int etudiant) {
+	public void setEtudiant(String etudiant) {
 		this.etudiantId = etudiant;
 	}
 
