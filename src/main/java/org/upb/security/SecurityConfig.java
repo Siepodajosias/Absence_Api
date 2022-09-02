@@ -40,6 +40,7 @@ public class SecurityConfig{
 		//http.formLogin();
 		http.authorizeHttpRequests().antMatchers("/login/**","/api/upb/inscriptions/**").permitAll();
 		http.authorizeHttpRequests().antMatchers(HttpMethod.POST,"/api/upb/absences/**").hasAnyAuthority("ENSEIGNANT","ADMINISTRATEUR");
+		http.authorizeHttpRequests().antMatchers(HttpMethod.POST,"/api/upb/justifications/**").hasAnyAuthority("ETUDIANT","ADMINISTRATEUR");
 		http.authorizeHttpRequests().antMatchers(
 				"/api/upb/etudiants/**"
 				,"/api/upb/absences/**"
@@ -54,6 +55,21 @@ public class SecurityConfig{
 				,"/api/upb/ecues/**"
 				,"/api/upb/roles/**"
 				,"/api/upb/utilisateurs/**"
+				//
+				,"/etudiants/**"
+				,"/absences/**"
+				,"/administrateurs/**"
+				,"/enseignants/**"
+				,"/filieres/**"
+				,"/niveaus/**"
+				,"/parents/**"
+				,"/justifications/**"
+				,"/semestres/**"
+				,"/anneeAcademiques/**"
+				,"/ecues/**"
+				,"/roles/**"
+				,"/utilisateurs/**"
+				
 				).authenticated();
 	
 		http.addFilter(new JWTAuthenticationFiller(authenticationManager));
