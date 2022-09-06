@@ -25,6 +25,7 @@ public class Filiere implements java.io.Serializable {
 	private Set<Etudiant> etudiants = new HashSet<Etudiant>(0);
 
 	public Filiere() {
+		
 	}
 
 	public Filiere(String designationFiliere) {
@@ -48,7 +49,7 @@ public class Filiere implements java.io.Serializable {
 		this.idFiliere = idFiliere;
 	}
 
-	@Column(name = "designation_filiere", nullable = false, length = 45)
+	@Column(name = "designation_filiere",length = 45)
 	public String getDesignationFiliere() {
 		return this.designationFiliere;
 	}

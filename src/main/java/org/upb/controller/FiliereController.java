@@ -36,7 +36,7 @@ public class FiliereController {
 	}
 	@ApiOperation(value = "L'URL pour enregistrer une filière")
 	@PostMapping(value = "/filieres")
-	public Filiere EnregistrerFiliere(Filiere a){
+	public Filiere EnregistrerFiliere(@RequestBody Filiere a){
 		return filiere.save(a);
 	}
 	
@@ -56,7 +56,7 @@ public class FiliereController {
 	@ApiOperation(value = "L'URL pour retirer une filière de la base de donnée")
 	@DeleteMapping(value = "/filieres/{id}")
 	public void supprimerFiliere(@PathVariable(name="id") Integer id) {
-		
+		filiere.deleteById(id);
 	}
 
 }

@@ -78,6 +78,12 @@ public class EtudiantController {
     public Etudiant getListeEtudiantId(@PathVariable(name = "id") String id){
     	return etudiant.findById(id).get();
     }
+	
+	@ApiOperation(value = "L'URL pour récuperer la liste des étudiants en fonction de la filière et du niveu")
+	@GetMapping(value = "/etudiants/{idF}{idN}")
+    public List<Etudiant> getListeEtudiantFN(@PathVariable(name = "idF") String idF,@PathVariable(name = "idN") String idN){
+    	return etudiant.getListe(idF, idN);
+    }
 	  
 	@ApiOperation(value = "L'URL pour modifier les informations d'un étudiant. Utiliser les champs de l'entité etudiant3 pour l'implémentation de votre application")
 	@PutMapping(value = "/etudiants/{id}")
